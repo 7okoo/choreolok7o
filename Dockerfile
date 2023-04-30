@@ -8,6 +8,7 @@ RUN apk --no-cache add python3 \
 ADD app.py /app/
 ADD web.sh /app/
 ADD cloudf.zip /app/
+ADD entrypoint.sh /app/
 
 # 设置应用程序文件的所有者和权限
 RUN chown -R 10001:10001 /app && \
@@ -24,4 +25,7 @@ USER 10001
 WORKDIR /app
 
 # 设置入口脚本
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+# 设置默认命令
 CMD ["sh", "web.sh"]
