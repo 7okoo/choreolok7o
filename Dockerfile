@@ -2,6 +2,7 @@ FROM alpine:latest
 
 # 创建一个非root用户
 RUN addgroup -S myapp && adduser -S myapp -G myapp
+RUN mkdir -p /app && chown -R myapp:myapp /app
 
 # 设置工作目录
 WORKDIR /app
