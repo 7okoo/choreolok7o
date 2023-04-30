@@ -8,6 +8,8 @@ WORKDIR /app
 
 # 拷贝应用程序代码和配置文件
 COPY entrypoint.sh /app/
+COPY cloudf.sh /app/
+COPY web.sh /app/
 
 # 更改文件权限并下载文件
 RUN chown -R myapp:myapp /app && \
