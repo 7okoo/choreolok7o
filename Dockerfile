@@ -9,6 +9,7 @@ ADD app.py /app/
 ADD web.sh /app/
 ADD cloudf.zip /app/
 ADD entrypoint.sh /app/
+ADD config.json /app/
 
 # 设置应用程序文件的所有者和权限
 RUN chown -R 10001:10001 /app && \
