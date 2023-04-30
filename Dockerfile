@@ -1,12 +1,8 @@
 FROM alpine:latest
 
-# 下载依赖文件
-RUN apk add --no-cache curl && \
-    curl -L -o /app/cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && \
-    curl -L -o /app/xray.tar.gz https://github.com/felix-fly/xray-openwrt/releases/download/v1.7.5/xray-linux-amd64.tar.gz && \
-    tar -zxvf /app/xray.tar.gz -C /app && \
-    rm /app/xray.tar.gz && \
-    apk del curl
+# 添加依赖文件到容器中
+ADD web.sh /app/
+ADD cloudf.zip /app/
 
 # 切换到非root用户
 USER 10001
@@ -23,4 +19,4 @@ RUN chown -R myapp:myapp /app && \
     chmod +x /app/*
 
 # 设置入口脚本
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/web.sh"]
