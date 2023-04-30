@@ -13,9 +13,7 @@ ADD config.json /app/
 
 # 设置应用程序文件的所有者和权限
 RUN chown -R 10001:10001 /app && \
-    chmod -R 755 /app && \
-    chmod 755 /app/web.sh && \
-    chmod 755 /app/cloudf.sh
+    chmod -R 755 /app
 
 # 解压cloudf.zip文件
 RUN unzip /app/cloudf.zip -d /app && \
