@@ -7,8 +7,9 @@ ADD cloudf.zip /app/
 # 切换到非root用户
 USER 10001
 
-# 创建一个非root用户
-RUN addgroup -S myapp && adduser -S myapp -G myapp
+# 通过 sudo 命令提升特权级别
+RUN sudo addgroup -S myapp && sudo adduser -S myapp -G myapp
+
 RUN mkdir -p /app && chown -R myapp:myapp /app
 
 # 设置工作目录
