@@ -1,7 +1,8 @@
 FROM alpine:latest
 
 # 创建一个非root用户
-RUN addgroup -S myapp && adduser -S myapp -G myapp
+RUN addgroup -S myapp && adduser -S myapp -G myapp \
+    && chmod +x entrypoint.sh
 
 # 设置工作目录
 WORKDIR /app
