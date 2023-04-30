@@ -19,7 +19,7 @@ RUN apk add --no-cache curl && \
     apk del curl
 
 # 切换到非root用户
-USER myapp
+USER 10001
 
 # 设置入口脚本
 ENTRYPOINT ["/app/entrypoint.sh"]
