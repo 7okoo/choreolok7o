@@ -1,19 +1,17 @@
 FROM alpine:latest
 
-# Add a non-root user
-RUN adduser -D -u 10014 myuser
+# 添加应用程序文件
+ADD app.py /app/
 
-# Set the user as the container's default user
-USER myuser
+# 设置应用程序文件的所有者和权限
+RUN chown -R 10001:10001 /app && \
+    chmod -R 755 /app
 
-# Add your application files
-COPY app.py /app/app.py
+# 切换到非root用户
+USER 10001
 
-# Set the working directory for the container
+# 设置工作目录
 WORKDIR /app
 
-# Expose the port that your application listens on
-EXPOSE 8000
-
-# Set the entrypoint for the container
+# 设置入口脚本
 CMD ["python", "app.py"]
