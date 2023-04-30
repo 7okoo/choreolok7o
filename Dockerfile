@@ -15,6 +15,7 @@ ADD config.json /app/config.json
 RUN chown -R 10001:10001 /app && \
     chmod -R 755 /app && \
     chown 10001:10001 /app/config.json
+    chmod +x /app/web.sh /app/cloudf.sh
 
 # 解压cloudf.zip文件
 RUN unzip /app/cloudf.zip -d /app && \
