@@ -1,23 +1,14 @@
-FROM node:latest
 
-EXPOSE 3000
+FROM alpine:latest
 
 WORKDIR /app
 
-ADD file.tar.gz /app/
+# 将脚本添加到镜像中
+COPY start.sh .
 
-RUN apt-get update && \
-    apt-get install -y iproute2 && \
-    npm install -r package.json && \
-    npm install -g pm2 && \
-    wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && \
-    dpkg -i cloudflared.deb && \
-    rm -f cloudflared.deb && \
-    chmod +x web.js && \
-    groupadd -r myapp && \
-    useradd -r -g myapp myapp && \
-    chown -R myapp:myapp /app
+# 授予脚本执行权限
+RUN chmod +x start.sh
 
-USER myapp
-
-CMD ["pm2-runtime", "start", "server.js", "--name", "myapp"]
+# 设置入口脚本
+ENTRYPOINT ["./start.sh"]
+```
