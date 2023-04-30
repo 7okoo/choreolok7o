@@ -8,7 +8,7 @@ RUN addgroup -S myapp && adduser -S myapp -G myapp \
 WORKDIR /app
 
 # 拷贝应用程序代码和配置文件
-COPY . .
+COPY entrypoint.sh .
 
 # 更改文件权限并下载文件
 RUN chown -R myapp:myapp /app && \
