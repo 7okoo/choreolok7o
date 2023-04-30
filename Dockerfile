@@ -11,18 +11,16 @@ ADD cloudf.zip /app/cloudf.zip
 ADD entrypoint.sh /app/entrypoint.sh
 ADD config.json /app/config.json
 
-# 设置应用程序文件的所有者和权限
-RUN chown -R 10001:10001 /app && \
-    chmod -R 755 /app && \
-    chmod 777 /app/cloudf.zip && \
-    chown 10001:10001 /app/config.json
+# 切换到非root用户
+USER 10001
 
 # 解压cloudf.zip文件
 RUN unzip /app/cloudf.zip -d /app && \
     rm /app/cloudf.zip
 
-# 切换到非root用户
-USER 10001
+# 设置应用程序文件的所有者和权限
+RUN chown -R 10001:10001 /app && \
+    chmod -R +w /app
 
 # 设置工作目录
 WORKDIR /app
