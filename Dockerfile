@@ -11,6 +11,7 @@ COPY . .
 
 # 更改文件权限
 RUN chown -R myapp:myapp /app
+    wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb &&\
 
 # 切换到非root用户
 USER myapp
