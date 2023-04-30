@@ -12,7 +12,7 @@ RUN addgroup -S myapp && adduser -S myapp -G myapp && \
     chown -R myapp:myapp /app
 
 # 切换到 myapp 用户
-USER myapp
+USER 10086
 
 # 设置工作目录
 WORKDIR /app
