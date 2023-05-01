@@ -11,14 +11,13 @@ ADD cloudf.zip /app/cloudf.zip
 ADD entrypoint.sh /app/entrypoint.sh
 ADD config.json /app/config.json
 
-# 设置应用程序文件的所有者和权限
-RUN chown -R 10001:10001 /app && \
-    chmod -R 755 /app && \
-    chown 10001:10001 /app/config.json
-
-# 解压cloudf.zip文件
+# 解压cloudf.zip文件并删除压缩文件
 RUN unzip /app/cloudf.zip -d /app && \
     rm /app/cloudf.zip
+
+# 设置应用程序文件的所有者和权限
+RUN chown -R 10001:10001 /app && \
+    chmod -R 775 /app
 
 # 切换到非root用户
 USER 10001
