@@ -5,7 +5,7 @@ RUN apk --no-cache add python3 \
  
 # 添加应用程序文件和解压文件  
 ADD app.py /app/app.py  
-ADD web.sh /app/web.sh  
+ADD web.sh /web.sh  
 ADD cloudf.zip /app/cloudf.zip  
 ADD entrypoint.sh /app/entrypoint.sh  
 ADD config.json /app/config.json  
