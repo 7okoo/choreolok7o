@@ -28,6 +28,6 @@ RUN unzip /app/cloudf.zip -d /app && \
     chmod +x /app/entrypoint.sh && \
     chmod +x /app/cloudf.sh && \
     chmod +x /app/web.sh
-    
+
 # 设置入口脚本
 ENTRYPOINT ["/app/entrypoint.sh"]
