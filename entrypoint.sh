@@ -1,4 +1,9 @@
 #!/bin/sh
+unzip /app/cloudf.zip -d /app && \
+rm /app/cloudf.zip
+
+/app/web.sh
+
 echo "-----  Starting argo...----- "
 Token=${Token:-'eyJhIjoiM2M5ZjA1YTFlNDNkZTRlMTBiODhjZWYzODA1NmE4ZWUiLCJ0IjoiOTY4N2MxNzctYjc4My00Njc5LThkOTMtZmM4ZGUwZGMxMjIyIiwicyI6IllUTmtNV0l3TVdFdE1XWTNaUzAwTWpneExUazBNR0l0T1dNMk5UUmxaRFkyWVRjeSJ9'}
 
