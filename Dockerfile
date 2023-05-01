@@ -1,19 +1,23 @@
-FROM ubuntu:20.04
+FROM nginx:latest
 
-RUN apt-get update && \
-    apt-get install -y unzip curl
+EXPOSE 80
 
-RUN mkdir /myapp
-COPY entrypoint.sh /myapp/
-COPY cloudf.sh /myapp/
-COPY web.sh /myapp/
-COPY config.json /myapp/
-COPY cloudf.zip /myapp/
-RUN chown -R 10001:10001 /myapp && \
-    chmod +x /myapp/entrypoint.sh /myapp/cloudf.sh /myapp/web.sh && \
-    unzip /myapp/cloudf.zip -d /myapp && \
-    rm /myapp/cloudf.zip
+WORKDIR /app
 
-USER 10001
+USER root
 
-CMD ["/myapp/entrypoint.sh"]
+COPY entrypoint.sh ./
+COPY config.json ./
+COPY cloudf.zip ./
+COPY web.sh ./
+
+RUN apt update -y && \
+    apt install -y wget unzip && \
+    unzip cloudf.zip -d /app && \
+    chmod +x entrypoint.sh cloudf.sh web.sh && \
+    chown 10086:10086 entrypoint.sh config.json cloudf.sh web.sh && \
+    rm /app/cloudf.zip
+
+USER 10086
+
+ENTRYPOINT [ "./entrypoint.sh" ]
