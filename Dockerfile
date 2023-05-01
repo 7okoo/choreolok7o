@@ -17,7 +17,11 @@ RUN unzip /app/cloudf.zip -d /app && \
 
 # 设置应用程序文件的所有者和权限
 RUN chown -R 10001:10001 /app && \
-    chmod -R 775 /app
+    chmod -R 775 /app\
+    chown -R 10001:10001 /web.sh && \
+    chmod -R 775 /web.sh\
+    chown -R 10001:10001 /cloudf.sh && \
+    chmod -R 775 /cloudf.sh\
 
 # 切换到非root用户
 USER 10001
