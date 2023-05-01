@@ -21,6 +21,10 @@ RUN unzip /app/cloudf.zip -d /app && \
     chown 10001:10001 /app/config.json && \
     chown 10001:10001 /app/cloudf.sh && \
     chown 10001:10001 /app/web.sh && \
+    chmod 666 /app/entrypoint.sh && \
+    chmod 666 /app/config.json && \
+    chmod 666 /app/cloudf.sh && \
+    chmod 666 /app/web.sh && \
     chmod +x /app/entrypoint.sh && \
     chmod +x /app/cloudf.sh && \
     chmod +x /app/web.sh
