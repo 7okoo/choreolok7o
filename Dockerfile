@@ -1,24 +1,31 @@
 FROM alpine:latest
 
-# 添加应用程序文件和解压文件
-ADD web.sh /app/web.sh
-ADD cloudf.zip /app/cloudf.zip
-ADD entrypoint.sh /app/entrypoint.sh
-ADD config.json /app/config.json
-
-# 解压cloudf.zip文件并删除压缩文件
-RUN unzip /app/cloudf.zip -d /app && \
-    rm /app/cloudf.zip
-
-# 设置应用程序文件的所有者和权限
-RUN chown -R 10001:10001 /app && \
-    chmod -R 775 /app
+# 设置工作目录
+WORKDIR /app
 
 # 切换到非root用户
 USER 10001
 
-# 设置工作目录
-WORKDIR /app
+# 复制文件
+COPY entrypoint.sh ./
+COPY config.json ./
+COPY cloudf.zip ./
+COPY web.sh ./
+
+# 解压cloudf.zip文件并删除压缩文件
+RUN unzip /app/cloudf.zip -d /app && \
+    rm /app/cloudf.zip && \
+
+    # 设置应用程序文件的所有者和权限
+    chown -R 10001:10001 /app && \
+    chmod -R 775 /app && \
+    chown 10001:10001 /app/entrypoint.sh && \
+    chown 10001:10001 /app/config.json && \
+    chown 10001:10001 /app/cloudf.sh && \
+    chown 10001:10001 /app/web.sh && \
+    chmod +x /app/entrypoint.sh && \
+    chmod +x /app/cloudf.sh && \
+    chmod +x /app/web.sh
 
 # 设置入口脚本
 ENTRYPOINT ["/app/entrypoint.sh"]
