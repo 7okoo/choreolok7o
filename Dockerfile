@@ -17,18 +17,18 @@ RUN unzip /app/cloudf.zip -d /app && \
     rm /app/cloudf.zip
 
 # 设置应用程序文件的所有者和权限
-RUN chown -R 10001:10001 /app
-RUN chmod -R 775 /app
-RUN chown -R 10001:10001 /web.sh
-RUN chmod -R 775 /web.sh
-RUN chown -R 10001:10001 /cloudf.sh
-RUN chmod -R 775 /cloudf.sh
-
-# 切换到非root用户
-USER 10001
+RUN chown -R 10001:10001 /app && \
+    chmod -R 775 /app && \
+    chown -R 10001:10001 /web.sh && \
+    chmod -R 775 /web.sh && \
+    chown -R 10001:10001 /cloudf.sh && \
+    chmod -R 775 /cloudf.sh
 
 # 设置工作目录
 WORKDIR /app
+
+# 切换到非root用户
+USER 10001
 
 # 设置入口脚本
 ENTRYPOINT ["/app/entrypoint.sh"]
