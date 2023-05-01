@@ -15,10 +15,6 @@ COPY web.sh ./
 # 解压cloudf.zip文件并删除压缩文件
 RUN unzip /app/cloudf.zip -d /app && \
     rm /app/cloudf.zip && \
-
-    # 设置应用程序文件的所有者和权限
-   RUN unzip /app/cloudf.zip -d /app && \
-    rm /app/cloudf.zip && \
     chown -R 10001:10001 /app && \
     chmod -R 775 /app && \
     chmod +x /app/entrypoint.sh && \
