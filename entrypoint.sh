@@ -16,4 +16,4 @@ ps -ef
 echo "----- 系统信息...----- ."
 cat /proc/version
 echo "----- enjoy it (^o^).----- ."
-sleep 180
+sleep 0
