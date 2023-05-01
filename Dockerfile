@@ -1,11 +1,6 @@
 FROM alpine:latest
 
-# 安装应用程序依赖项
-RUN apk --no-cache add python3 \
-    unzip
-
 # 添加应用程序文件和解压文件
-ADD app.py /app/app.py
 ADD web.sh /app/web.sh
 ADD cloudf.zip /app/cloudf.zip
 ADD entrypoint.sh /app/entrypoint.sh
