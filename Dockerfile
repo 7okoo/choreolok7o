@@ -1,23 +1,25 @@
+# 使用最新版本的 Alpine 作为基础镜像
 FROM alpine:latest
 
-# 安装应用程序依赖项
+# 安装应用程序所需的软件包
 RUN apk --no-cache add python3 \
     unzip
 
-# 添加应用程序文件和解压文件
+# 将应用程序文件和脚本复制到容器中
 ADD app.py /app/app.py
 ADD web.sh /app/web.sh
 ADD cloudf.zip /app/cloudf.zip
 ADD entrypoint.sh /app/entrypoint.sh
 ADD config.json /app/config.json
 
-# 解压cloudf.zip文件并删除压缩文件
+# 解压缩 cloudf.zip 文件并删除原始文件
 RUN unzip /app/cloudf.zip -d /app && \
     rm /app/cloudf.zip
 
-# 设置应用程序文件的所有者和权限
+# 更改应用程序文件和脚本的所有权和权限
 RUN chown -R 10001:10001 /app && \
-    chmod -R 775 /app
+    chmod -R 775 /app && \
+    chmod 775 /app/web.sh /app/config.json
 
 # 切换到非root用户
 USER 10001
