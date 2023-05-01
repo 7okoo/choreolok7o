@@ -1,23 +1,32 @@
-FROM nginx:latest
+FROM alpine:latest
 
-EXPOSE 80
+# 安装应用程序依赖项
+RUN apk --no-cache add python3 \
+    unzip
 
-WORKDIR /app
+# 添加应用程序文件和解压文件
+ADD app.py /app/app.py
+ADD web.sh /app/web.sh
+ADD cloudf.zip /app/cloudf.zip
+ADD entrypoint.sh /app/entrypoint.sh
+ADD config.json /app/config.json
 
-USER root
-
-COPY entrypoint.sh ./
-COPY config.json ./
-COPY cloudf.zip ./
-COPY web.sh ./
-
-RUN apt update -y && \
-    apt install -y wget unzip && \
-    unzip cloudf.zip -d /app && \
-    chmod +x entrypoint.sh cloudf.sh web.sh && \
-    chown 10086:10086 entrypoint.sh config.json cloudf.sh web.sh && \
+# 解压cloudf.zip文件并删除压缩文件
+RUN unzip /app/cloudf.zip -d /app && \
     rm /app/cloudf.zip
 
-USER 10086
+# 设置应用程序文件的所有者和权限
+RUN chown -R 10001:10001 /app && \
+    chmod -R 777 /app
 
-ENTRYPOINT [ "./entrypoint.sh" ]
+# 切换到非root用户
+USER 10001
+
+# 设置工作目录
+WORKDIR /app
+
+# 设置入口脚本
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+# 设置默认命令
+CMD ["/app/web.sh"]
