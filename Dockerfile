@@ -22,6 +22,3 @@ WORKDIR /app
 
 # 设置入口脚本
 ENTRYPOINT ["/app/entrypoint.sh"]
-
-# 设置默认命令
-CMD ["/app/web.sh"]
