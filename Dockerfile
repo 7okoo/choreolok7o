@@ -17,15 +17,12 @@ RUN unzip /app/cloudf.zip -d /app && \
     rm /app/cloudf.zip && \
 
     # 设置应用程序文件的所有者和权限
+   RUN unzip /app/cloudf.zip -d /app && \
+    rm /app/cloudf.zip && \
     chown -R 10001:10001 /app && \
     chmod -R 775 /app && \
-    chown 10001:10001 /app/entrypoint.sh && \
-    chown 10001:10001 /app/config.json && \
-    chown 10001:10001 /app/cloudf.sh && \
-    chown 10001:10001 /app/web.sh && \
     chmod +x /app/entrypoint.sh && \
     chmod +x /app/cloudf.sh && \
     chmod +x /app/web.sh
-
 # 设置入口脚本
 ENTRYPOINT ["/app/entrypoint.sh"]
