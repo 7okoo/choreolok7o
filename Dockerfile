@@ -24,6 +24,9 @@ RUN chown -R 10001:10001 /app && \
     chown -R 10001:10001 /cloudf.sh && \
     chmod -R 775 /cloudf.sh
 
+# 暴露端口
+EXPOSE 8080
+
 # 设置工作目录
 WORKDIR /app
 
