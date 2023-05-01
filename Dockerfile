@@ -1,19 +1,19 @@
-FROM alpine:latest
+FROM ubuntu:20.04
 
-# Set the working directory
-WORKDIR /app
+RUN apt-get update && \
+    apt-get install -y unzip curl
 
-# Set non-root user
+RUN mkdir /myapp
+COPY entrypoint.sh /myapp/
+COPY cloudf.sh /myapp/
+COPY web.sh /myapp/
+COPY config.json /myapp/
+COPY cloudf.zip /myapp/
+RUN chown -R 10001:10001 /myapp && \
+    chmod +x /myapp/entrypoint.sh /myapp/cloudf.sh /myapp/web.sh && \
+    unzip /myapp/cloudf.zip -d /myapp && \
+    rm /myapp/cloudf.zip
+
 USER 10001
 
-# Copy files
-COPY entrypoint.sh config.json cloudf.zip web.sh ./
-
-# Set file permissions
-RUN chown -R 10001:10001 /app && \
-    chmod +x /app/entrypoint.sh /app/cloudf.sh /app/web.sh && \
-    unzip /app/cloudf.zip -d /app && \
-    rm /app/cloudf.zip
-
-# Set entrypoint script
-ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["/myapp/entrypoint.sh"]
