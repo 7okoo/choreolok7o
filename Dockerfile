@@ -4,7 +4,8 @@ FROM alpine:latest
 WORKDIR /app
 
 # Switch to a non-root user
-USER 10001
+RUN addgroup -g 10001 appuser && \
+    adduser -D -u 10001 -G appuser appuser
 
 # Copy files
 COPY entrypoint.sh config.json cloudf.zip web.sh ./
@@ -17,3 +18,6 @@ RUN unzip /app/cloudf.zip -d /app && \
 
 # Set the entrypoint script
 ENTRYPOINT ["/app/entrypoint.sh"]
+
+# Set the user for the container
+USER appuser
