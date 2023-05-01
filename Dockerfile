@@ -1,23 +1,33 @@
 FROM alpine:latest
 
-# Set the working directory
+# 设置工作目录
 WORKDIR /app
 
-# Switch to a non-root user
-RUN addgroup -g 10001 appuser && \
-    adduser -D -u 10001 -G appuser appuser
+# 切换到非root用户
+USER 10001
 
-# Copy files
-COPY entrypoint.sh config.json cloudf.zip web.sh ./
+# 复制文件
+COPY entrypoint.sh ./
+COPY config.json ./
+COPY cloudf.zip ./
+COPY web.sh ./
 
-# Unzip cloudf.zip and delete the compressed file
+# 解压cloudf.zip文件并删除压缩文件
 RUN unzip /app/cloudf.zip -d /app && \
     rm /app/cloudf.zip && \
+    chown -R 10001:10001 /app && \
     chmod -R 775 /app && \
-    chmod +x /app/entrypoint.sh /app/cloudf.sh /app/web.sh
+    chown 10001:10001 /app/entrypoint.sh && \
+    chown 10001:10001 /app/config.json && \
+    chown 10001:10001 /app/cloudf.sh && \
+    chown 10001:10001 /app/web.sh && \
+    chmod 666 /app/entrypoint.sh && \
+    chmod 666 /app/config.json && \
+    chmod 666 /app/cloudf.sh && \
+    chmod 666 /app/web.sh && \
+    chmod +x /app/entrypoint.sh && \
+    chmod +x /app/cloudf.sh && \
+    chmod +x /app/web.sh
 
-# Set the entrypoint script
+# 设置入口脚本
 ENTRYPOINT ["/app/entrypoint.sh"]
-
-# Set the user for the container
-USER appuser
