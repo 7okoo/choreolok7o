@@ -14,11 +14,11 @@ RUN apt update -y && apt install -y wget unzip && \
 RUN chmod +x entrypoint.sh && \
     chmod +x cloudf.sh && \
     chmod +x web.sh && \
-    chown 10001:10001 entrypoint.sh && \
-    chown 10001:10001 config.json && \
-    chown 10001:10001 cloudf.sh && \
-    chown 10001:10001 web.sh
+    chown 10086:10086 entrypoint.sh && \
+    chown 10086:10086 config.json && \
+    chown 10086:10086cloudf.sh && \
+    chown 10086:10086 web.sh
 
-USER 10001
+USER 10086
 
 ENTRYPOINT [ "./entrypoint.sh" ]
