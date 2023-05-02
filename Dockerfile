@@ -19,13 +19,11 @@ RUN unzip cloudf.zip cloudf.sh && \
     chmod +x entrypoint.sh && \
     chmod +x cloudf.sh && \
     chmod +x web.sh && \
+    chmod 644 config.json && \
     chown 10001:10001 entrypoint.sh && \
-    chown 10001:10001 config.json && \
     chown 10001:10001 cloudf.sh && \
     chown 10001:10001 web.sh
 
 # 切换到普通用户并设置入口点
 USER 10001
 ENTRYPOINT [ "./entrypoint.sh" ]
-
-
