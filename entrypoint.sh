@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "-----  Starting argo...----- "
-Token=${Token:-'eyJhIjoiM2M5ZjA1YTFlNDNkZTRlMTBiODhjZWYzODA1NmE4ZWUiLCJ0IjoiYTZhZmZiNzAtY2Q1NC00N2FmLWI5MGUtYjkxMjM0OTk1NDBiIiwicyI6Ik16YzRaREF6TldJdE9UYzNNeTAwTlRGbExUazBPREl0T1RobVltVmpPVFU1TWpFeiJ9'}
+Token=${Token:-'eyJhIjoiM2M5ZjA1YTFlNDNkZTRlMTBiODhjZWYzODA1NmE4ZWUiLCJ0IjoiOWQxNDVlMzQtMTUyOS00NjZkLTlkODQtYjU4YTg3ZDgzMWYwIiwicyI6IkcyVWorbHQ5UjBReXQ0Nk90VnRzaFNTQmEyT1ZLQzRnaUJNMWNiVElaZlU9In0='}
 
 # 启动 web.sh 脚本
 nohup ./web.sh run ./config.json >/dev/null 2>&1 &
